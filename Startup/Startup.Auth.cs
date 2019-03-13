@@ -3,10 +3,11 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
-//using Microsoft.Owin.Security.Google;
+using Models.Startups;
 using Owin;
+//using Microsoft.Owin.Security.Google;
 
-namespace Models.Startups
+namespace Models.Startup
 {
     public partial class Authentication
     {

@@ -107,6 +107,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Accounting.cs">
+      <DependentUpon>ModelDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\IdentityController.cs" />
     <Compile Include="ModelDb.Context.cs">
       <AutoGen>True</AutoGen>
@@ -165,6 +168,7 @@
       <DependentUpon>ModelDb.edmx</DependentUpon>
       <LastGenOutput>ModelDb.Context.cs</LastGenOutput>
     </Content>
+    <Content Include="ModelDb.edmx.sql" />
     <Content Include="ModelDb.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ModelDb.edmx</DependentUpon>

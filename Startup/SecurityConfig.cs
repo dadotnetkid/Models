@@ -4,6 +4,7 @@ using Microsoft.Owin.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -123,13 +124,53 @@ namespace Models.Startups
 
 
         public class EmailService : IIdentityMessageService
+    {
+        private string Email = "careers@northops.asia";
+        public Task SendAsync(IdentityMessage message)
         {
-            public Task SendAsync(IdentityMessage message)
+            System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient();
+
+            //initialization
+            var mailMessage = new System.Net.Mail.MailMessage();
+            //from
+            mailMessage.From = new System.Net.Mail.MailAddress(Email, "NorthOps");
+            //to
+            mailMessage.To.Add(new System.Net.Mail.MailAddress(message.Destination));
+            mailMessage.Body = message.Body;
+            mailMessage.Subject = message.Subject;
+            mailMessage.IsBodyHtml = true;
+
+            //client.SendAsync(mailMessage, null);
+            Task task = Task.Run(new Action(async () =>
             {
-                // Plug in your email service here to send an email.
-                return Task.FromResult(0);
-            }
+                await client.SendMailAsync(mailMessage);
+
+            }));
+            return task;
         }
+
+        public Task SendAsync(MailMessage mailMessage)
+        {
+            System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient();
+
+            Task task = Task.Run(new Action(async () =>
+            {
+                try
+                {
+                    await client.SendMailAsync(mailMessage);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+
+                }
+
+
+            }));
+
+            return task;
+        }
+    }
 
         public class SmsService : IIdentityMessageService
         {

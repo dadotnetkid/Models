@@ -29,5 +29,6 @@ namespace Models
         public virtual DbSet<UserLogins> UserLogins { get; set; }
         public virtual DbSet<UserRoles> UserRoles { get; set; }
         public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<Accounting> Accounting { get; set; }
     }
 }
