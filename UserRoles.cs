@@ -17,6 +17,7 @@ namespace Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public UserRoles()
         {
+            this.UserRolesInActions = new HashSet<UserRolesInActions>();
             this.Users = new HashSet<Users>();
         }
     
@@ -24,6 +25,8 @@ namespace Models
         public string Name { get; set; }
         public string Description { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserRolesInActions> UserRolesInActions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Users> Users { get; set; }
     }

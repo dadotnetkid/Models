@@ -12,11 +12,15 @@ namespace Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Accounting
+    public partial class Billings
     {
         public int Id { get; set; }
-        public string Type { get; set; }
-        public Nullable<int> ParentId { get; set; }
+        public Nullable<int> EnrollmentId { get; set; }
+        public string OfficialReceipt { get; set; }
         public Nullable<decimal> Amount { get; set; }
+        public string Type { get; set; }
+        public Nullable<System.DateTime> DateCreated { get; set; }
+    
+        public virtual Enrollments Enrollments { get; set; }
     }
 }

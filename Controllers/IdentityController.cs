@@ -10,7 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Models.Startups;
 
-namespace Models.Controllers
+namespace Models.ControllerHelpers
 {
     public class IdentityController : Controller
     {

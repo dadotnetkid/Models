@@ -2,13 +2,13 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 03/13/2019 12:12:14
--- Generated from EDMX file: D:\Software Development\Repositories\Generic.Models\ModelDb.edmx
+-- Date Created: 04/03/2019 02:48:22
+-- Generated from EDMX file: D:\Software Development\Repositories\IBEC\Models\ModelDb.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
 GO
-USE [accounting];
+USE [ibec];
 GO
 IF SCHEMA_ID(N'dbo') IS NULL EXECUTE(N'CREATE SCHEMA [dbo]');
 GO
@@ -17,13 +17,37 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[FK_UserClaims_Users]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[UserClaims] DROP CONSTRAINT [FK_UserClaims_Users];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UserLogins_Users]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[UserLogins] DROP CONSTRAINT [FK_UserLogins_Users];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UsersInRoles_UserRoles]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[UsersInRoles] DROP CONSTRAINT [FK_UsersInRoles_UserRoles];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UsersInRoles_Users]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[UsersInRoles] DROP CONSTRAINT [FK_UsersInRoles_Users];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[Accounting]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Accounting];
+IF OBJECT_ID(N'[dbo].[UserClaims]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[UserClaims];
+GO
+IF OBJECT_ID(N'[dbo].[UserLogins]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[UserLogins];
+GO
+IF OBJECT_ID(N'[dbo].[UserRoles]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[UserRoles];
+GO
+IF OBJECT_ID(N'[dbo].[Users]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Users];
+GO
+IF OBJECT_ID(N'[dbo].[UsersInRoles]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[UsersInRoles];
 GO
 
 -- --------------------------------------------------
@@ -90,15 +114,6 @@ CREATE TABLE [dbo].[Users] (
 );
 GO
 
--- Creating table 'Accounting'
-CREATE TABLE [dbo].[Accounting] (
-    [Id] int IDENTITY(1,1) NOT NULL,
-    [Type] varchar(255)  NULL,
-    [ParentId] int  NULL,
-    [Amount] decimal(19,4)  NULL
-);
-GO
-
 -- Creating table 'UsersInRoles'
 CREATE TABLE [dbo].[UsersInRoles] (
     [UserRoles_Id] nvarchar(128)  NOT NULL,
@@ -131,12 +146,6 @@ GO
 -- Creating primary key on [Id] in table 'Users'
 ALTER TABLE [dbo].[Users]
 ADD CONSTRAINT [PK_Users]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
-GO
-
--- Creating primary key on [Id] in table 'Accounting'
-ALTER TABLE [dbo].[Accounting]
-ADD CONSTRAINT [PK_Accounting]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 

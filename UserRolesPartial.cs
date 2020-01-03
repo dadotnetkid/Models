@@ -9,5 +9,6 @@ namespace Models
 {
     public partial class UserRoles : IRole<string>
     {
+        public string Priviledges => string.Join(", ", this.UserRolesInActions.Select(x => x.Action));
     }
 }

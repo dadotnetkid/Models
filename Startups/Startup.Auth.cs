@@ -3,15 +3,20 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
-using Models.Startups;
+using Microsoft.Owin.Security.OAuth;
 using Owin;
+
 //using Microsoft.Owin.Security.Google;
 
-namespace Models.Startup
+namespace Models.Startups
 {
     public partial class Authentication
     {
         // For more information on configuring authentication, please visit https://go.microsoft.com/fwlink/?LinkId=301864
+        public static OAuthAuthorizationServerOptions OAuthOptions { get; private set; }
+
+        public static string PublicClientId { get; private set; }
+        public static OAuthBearerAuthenticationOptions OAuthBearerOptions { get; private set; }
         public static void ConfigureAuth(IAppBuilder app)
         {
             // Configure the db context, user manager and signin manager to use a single instance per request
@@ -25,7 +30,7 @@ namespace Models.Startup
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                LoginPath = new PathString("/login"),
+                LoginPath = new PathString("/member/login"),
                 Provider = new CookieAuthenticationProvider
                 {
                     // Enables the application to validate the security stamp when the user logs in.
@@ -45,7 +50,28 @@ namespace Models.Startup
             // This is similar to the RememberMe option when you log in.
             app.UseTwoFactorRememberBrowserCookie(DefaultAuthenticationTypes.TwoFactorRememberBrowserCookie);
 
-            // Uncomment the following lines to enable logging in with third party login providers
+
+            PublicClientId = "self";
+            OAuthOptions = new OAuthAuthorizationServerOptions
+            {
+                TokenEndpointPath = new PathString("/Token"),
+                Provider = new ApplicationOAuthProvider(PublicClientId),
+                AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
+                AccessTokenExpireTimeSpan = TimeSpan.FromDays(14),
+
+                AllowInsecureHttp = true
+            };
+
+
+            app.UseOAuthBearerTokens(OAuthOptions);
+
+            OAuthBearerOptions = new OAuthBearerAuthenticationOptions()
+            {
+                Provider = new OAuthBearerAuthenticationProvider()
+            };
+            app.UseOAuthBearerAuthentication(OAuthBearerOptions);
+
+
             //app.UseMicrosoftAccountAuthentication(
             //    clientId: "",
             //    clientSecret: "");

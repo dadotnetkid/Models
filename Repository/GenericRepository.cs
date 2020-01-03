@@ -6,7 +6,11 @@ using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using System.Web;
+using System.Web.Helpers;
+using Microsoft.AspNet.Identity;
 using Models;
+using Newtonsoft.Json;
 
 namespace Models.Repository
 {
@@ -53,11 +57,11 @@ namespace Models.Repository
             }
         }
         public virtual IEnumerable<object> Get(
-             Expression<Func<TEntity, object>> selector )
+             Expression<Func<TEntity, object>> selector)
         {
             IQueryable<TEntity> query = dbSet;
 
-            
+
             return query.Select(selector).ToList();
         }
         public virtual IQueryable<TEntity> Fetch(Expression<Func<TEntity, bool>> filter = null, string includeProperties = "")
@@ -96,6 +100,15 @@ namespace Models.Repository
 
             return query.Where(filter).FirstOrDefault();
         }
+        public virtual TEntity Find( string includeProperties = "")
+        {
+            IQueryable<TEntity> query = dbSet;
+            if (includeProperties != "")
+                foreach (var includeProperty in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                    query = query.Include(includeProperty);
+
+            return query.FirstOrDefault();
+        }
         public virtual async Task<TEntity> FindAsync(Expression<Func<TEntity, bool>> filter)
         {
 
@@ -118,6 +131,13 @@ namespace Models.Repository
         public virtual void Delete(Expression<Func<TEntity, bool>> filter)
         {
             Delete(this.Find(filter));
+            TrackDeletedEntities(filter);
+        }
+
+        public virtual void DeleteRange(Expression<Func<TEntity, bool>> filter)
+        {
+            dbSet.RemoveRange(dbSet.Where(filter));
+
         }
         public virtual async Task<int> DeleteAsync(Expression<Func<TEntity, bool>> filter)
         {
@@ -177,6 +197,98 @@ namespace Models.Repository
         {
             dbSet.RemoveRange(entity);
         }
+
+        public void TrackModifiedEntities(Expression<Func<TEntity, bool>> filter, TEntity newItem)
+        {
+            context.Configuration.LazyLoadingEnabled = false;
+            context.Configuration.ProxyCreationEnabled = false;
+            var unitOfWork = new UnitOfWork();
+            var oldItem = Find(filter);
+
+
+            string oldObj = "";
+            string newObj = "";
+
+            foreach (var i in newItem.GetType().GetProperties())
+            {
+                try
+                {
+                    if (newItem.GetType().GetProperty(i.Name)?.GetValue(newItem, null).ToString()
+                            .Equals(oldItem.GetType().GetProperty(i.Name)?.GetValue(oldItem, null).ToString()) == false && newItem.GetType().GetProperty(i.Name)?.GetValue(newItem, null).ToString().Contains("System.Collections") == false)
+                    {
+                        oldObj += i.Name + "=" + oldItem.GetType().GetProperty(i.Name)?.GetValue(oldItem, null) + "<br/>";
+                        newObj += i.Name + "=" + newItem.GetType().GetProperty(i.Name)?.GetValue(newItem, null) + "<br/>";
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+            }
+
+
+
+
+            if (!oldItem.Equals(newItem))
+            {
+                var logs = new Logs()
+                {
+                    NewValues = newObj.ToString(),
+                    OldValues = oldObj.ToString(),
+                    DateCreated = DateTime.Now,
+                    TableName = newItem.GetType().Name,
+                    CreatedBy = HttpContext.Current.User.Identity.GetUserId(),
+                    Action = "Update",
+
+                };
+                unitOfWork.LogsRepo.Insert(logs);
+                unitOfWork.Save();
+                context.Entry(oldItem).State = EntityState.Detached;
+            }
+
+            context.Configuration.LazyLoadingEnabled = true;
+            context.Configuration.ProxyCreationEnabled = true;
+        }
+        public void TrackDeletedEntities(Expression<Func<TEntity, bool>> filter = null)
+        {
+            context.Configuration.LazyLoadingEnabled = false;
+            context.Configuration.ProxyCreationEnabled = false;
+
+            var old = Find(filter);
+            var unitOfWork = new UnitOfWork();
+
+            string oldObj = "";
+
+            foreach (var i in old.GetType().GetProperties())
+            {
+                try
+                {
+                    if (Convert.ToString(old.GetType().GetProperty(i.Name)?.GetValue(old, null)).Contains("System.Collections") == false)
+                        oldObj += i.Name + "=" + Convert.ToString(old.GetType().GetProperty(i.Name)?.GetValue(old, null)) + "<br/>";
+
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+            }
+
+
+
+            unitOfWork.LogsRepo.Insert(new Logs()
+            {
+                OldValues = oldObj,
+                DateCreated = DateTime.Now,
+                TableName = old.GetType().Name.Split('_')[0],
+                CreatedBy = HttpContext.Current.User.Identity.GetUserId(),
+                Action = "Delete",
+            });
+            unitOfWork.Save();
+
+            context.Configuration.LazyLoadingEnabled = true;
+            context.Configuration.ProxyCreationEnabled = true;
+        }
     }
+
 
 }

@@ -17,12 +17,14 @@ namespace Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Users()
         {
+            this.Logs = new HashSet<Logs>();
             this.UserClaims = new HashSet<UserClaims>();
             this.UserLogins = new HashSet<UserLogins>();
             this.UserRoles = new HashSet<UserRoles>();
         }
     
         public string Id { get; set; }
+        public Nullable<int> BiometricId { get; set; }
         public string Email { get; set; }
         public Nullable<bool> EmailConfirmed { get; set; }
         public string PasswordHash { get; set; }
@@ -37,27 +39,15 @@ namespace Models
         public string LastUpdatedBy { get; set; }
         public Nullable<System.DateTime> LastUpdated { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string MiddleName { get; set; }
-        public string CivilStatus { get; set; }
-        public string Gender { get; set; }
-        public Nullable<System.DateTime> BirthDate { get; set; }
-        public string AddressLine2 { get; set; }
-        public string AddressLine1 { get; set; }
-        public Nullable<int> TownCity { get; set; }
-        public string Cellular { get; set; }
-        public Nullable<decimal> Height { get; set; }
-        public Nullable<decimal> Weight { get; set; }
-        public string Religion { get; set; }
-        public string Citizenship { get; set; }
-        public string Languages { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Logs> Logs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserClaims> UserClaims { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserLogins> UserLogins { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserRoles> UserRoles { get; set; }
+        public virtual UserDetails UserDetails { get; set; }
     }
 }

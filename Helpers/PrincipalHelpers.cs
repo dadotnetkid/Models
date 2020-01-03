@@ -34,5 +34,29 @@ namespace Helpers
                 return false;
             return user.UserRoles.Any(m => roles.Contains(m.Name));
         }
+        public static bool UserInAction(this IPrincipal principal, string action)
+        {
+            if (!principal.Identity.IsAuthenticated) return false;
+            var unitOfWork = new UnitOfWork();
+            var userId = principal.Identity.GetUserId();
+            var x = unitOfWork.UsersRepo.Find(m => m.Id == userId);
+            if (!unitOfWork.ActionsRepo.Fetch(m => m.Action == action).Any())
+            {
+                unitOfWork.ActionsRepo.Insert(new Models.Actions() { Action = action });
+                unitOfWork.Save();
+            }
+            var role = unitOfWork.UserRolesRepo.Find(m => m.Name == "Administrator");
+            if (role != null)
+                if (role.UserRolesInActions.All(m => m.Action != action))
+                {
+                    role.UserRolesInActions.Add(new Models.UserRolesInActions() { Action = action });
+                    unitOfWork.Save();
+                }
+
+            if (x.UserRoles.Any(c => c.UserRolesInActions.Any(n => n.Action == action)))
+                return true;
+
+            return false;
+        }
     }
 }
