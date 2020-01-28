@@ -4,16 +4,45 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="2d3af104b4f046ac8514e78536113cee" Name="Diagram1" ZoomLevel="74">
-        <EntityTypeShape EntityType="Model.UserClaims" Width="1.5" PointX="5.25" PointY="2.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.UserLogins" Width="1.5" PointX="5.25" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.UserRoles" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Users" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
-        <AssociationConnector Association="Model.FK_UserClaims_Users" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK_UserLogins_Users" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.UsersInRoles" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="Model.Accounting" Width="1.5" PointX="7.375" PointY="0.75" />
-      </Diagram>
+      <Diagram DiagramId="2d3af104b4f046ac8514e78536113cee" Name="Diagram1" ZoomLevel="89">
+        <EntityTypeShape EntityType="Model.UserClaims" Width="1.5" PointX="5.25" PointY="6.125" />
+        <EntityTypeShape EntityType="Model.UserLogins" Width="1.5" PointX="5.25" PointY="8.875" />
+        <EntityTypeShape EntityType="Model.UserRoles" Width="1.5" PointX="0.75" PointY="7" />
+        <EntityTypeShape EntityType="Model.Users" Width="1.5" PointX="3" PointY="3" />
+        <AssociationConnector Association="Model.FK_UserClaims_Users" />
+        <AssociationConnector Association="Model.FK_UserLogins_Users" />
+        <AssociationConnector Association="Model.UsersInRoles" />
+        <EntityTypeShape EntityType="Model.Actions" Width="1.5" PointX="5.75" PointY="12.25" />
+        <EntityTypeShape EntityType="Model.UserRolesInActions" Width="1.5" PointX="3" PointY="11.375" />
+        <AssociationConnector Association="Model.FK_UserRolesInActions_UserRoles" />
+        <EntityTypeShape EntityType="Model.Provinces" Width="1.5" PointX="7.75" PointY="9.5" />
+        <EntityTypeShape EntityType="Model.Towns" Width="1.5" PointX="10" PointY="9.375" />
+        <AssociationConnector Association="Model.FK_Towns_Towns" />
+        <EntityTypeShape EntityType="Model.Logs" Width="1.5" PointX="5.25" PointY="2.875" />
+        <AssociationConnector Association="Model.FK_Logs_Users" />
+        <EntityTypeShape EntityType="Model.Activities" Width="1.5" PointX="7.75" PointY="12.25" />
+        <EntityTypeShape EntityType="Model.Certifications" Width="1.5" PointX="10" PointY="4.5" />
+        <EntityTypeShape EntityType="Model.FamilyMembers" Width="1.5" PointX="9.75" PointY="12.25" />
+        <EntityTypeShape EntityType="Model.Meetings" Width="1.5" PointX="11.75" PointY="12.25" />
+        <EntityTypeShape EntityType="Model.Blotters" Width="1.5" PointX="13" PointY="4.125" />
+        <EntityTypeShape EntityType="Model.Dropdowns" Width="1.5" PointX="12.375" PointY="8.75" />
+        <EntityTypeShape EntityType="Model.PersonalInformations" Width="1.5" PointX="7.75" PointY="3.875" />
+        <AssociationConnector Association="Model.FK_Blotters_Complaint" />
+        <AssociationConnector Association="Model.FK_BarangayClearances_PersonalInformations" />
+        <EntityTypeShape EntityType="Model.ComplaintTypes" Width="1.5" PointX="10.375" PointY="0.875" />
+        <AssociationConnector Association="Model.FK_Blotters_ComplaintTypes" />
+        <EntityTypeShape EntityType="Model.CertificationTypes" Width="1.5" PointX="7.375" PointY="0.875" />
+        <AssociationConnector Association="Model.FK_Certifications_CertificationTypes" />
+        <EntityTypeShape EntityType="Model.Templates" Width="1.5" PointX="12.375" PointY="0.75" />
+        <EntityTypeShape EntityType="Model.Employees" Width="1.5" PointX="14.75" PointY="0.75" />
+        <AssociationConnector Association="Model.FK_Employees_Employees" />
+        <EntityTypeShape EntityType="Model.Groups" Width="1.5" PointX="5.5" PointY="15.25" />
+        <AssociationConnector Association="Model.ResidentsInGroups" />
+        <AssociationConnector Association="Model.FK_Activities_Groups" />
+        <AssociationConnector Association="Model.FK_Meetings_Groups" />
+        <EntityTypeShape EntityType="Model.Cedulas" Width="1.5" PointX="10" PointY="15.875" />
+        <AssociationConnector Association="Model.FK_Cedulas_PersonalInformations" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

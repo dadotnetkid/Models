@@ -8,9 +8,9 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using Models.Startups;
+using Models.Startup;
 
-namespace Models.Controllers
+namespace Models.ControllerHelpers
 {
     public class IdentityController : Controller
     {

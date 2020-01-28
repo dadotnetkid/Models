@@ -3,11 +3,12 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
-using Models.Startups;
+using Models.Startup;
 using Owin;
+
 //using Microsoft.Owin.Security.Google;
 
-namespace Models.Startup
+namespace Models.Startups
 {
     public partial class Authentication
     {
@@ -25,7 +26,7 @@ namespace Models.Startup
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                LoginPath = new PathString("/login"),
+                LoginPath = new PathString("/member/login"),
                 Provider = new CookieAuthenticationProvider
                 {
                     // Enables the application to validate the security stamp when the user logs in.

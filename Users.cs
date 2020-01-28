@@ -20,6 +20,7 @@ namespace Models
             this.UserClaims = new HashSet<UserClaims>();
             this.UserLogins = new HashSet<UserLogins>();
             this.UserRoles = new HashSet<UserRoles>();
+            this.Logs = new HashSet<Logs>();
         }
     
         public string Id { get; set; }
@@ -59,5 +60,7 @@ namespace Models
         public virtual ICollection<UserLogins> UserLogins { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserRoles> UserRoles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Logs> Logs { get; set; }
     }
 }

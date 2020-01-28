@@ -29,6 +29,23 @@ namespace Models
         public virtual DbSet<UserLogins> UserLogins { get; set; }
         public virtual DbSet<UserRoles> UserRoles { get; set; }
         public virtual DbSet<Users> Users { get; set; }
-        public virtual DbSet<Accounting> Accounting { get; set; }
+        public virtual DbSet<Actions> Actions { get; set; }
+        public virtual DbSet<UserRolesInActions> UserRolesInActions { get; set; }
+        public virtual DbSet<Provinces> Provinces { get; set; }
+        public virtual DbSet<Towns> Towns { get; set; }
+        public virtual DbSet<Logs> Logs { get; set; }
+        public virtual DbSet<Activities> Activities { get; set; }
+        public virtual DbSet<Certifications> Certifications { get; set; }
+        public virtual DbSet<FamilyMembers> FamilyMembers { get; set; }
+        public virtual DbSet<Meetings> Meetings { get; set; }
+        public virtual DbSet<Blotters> Blotters { get; set; }
+        public virtual DbSet<Dropdowns> Dropdowns { get; set; }
+        public virtual DbSet<PersonalInformations> PersonalInformations { get; set; }
+        public virtual DbSet<ComplaintTypes> ComplaintTypes { get; set; }
+        public virtual DbSet<CertificationTypes> CertificationTypes { get; set; }
+        public virtual DbSet<Templates> Templates { get; set; }
+        public virtual DbSet<Employees> Employees { get; set; }
+        public virtual DbSet<Groups> Groups { get; set; }
+        public virtual DbSet<Cedulas> Cedulas { get; set; }
     }
 }

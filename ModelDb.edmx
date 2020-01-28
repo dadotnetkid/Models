@@ -4,171 +4,213 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityContainer Name="ModelStoreContainer">
-    <EntitySet Name="UserClaims" EntityType="Model.Store.UserClaims" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="UserLogins" EntityType="Model.Store.UserLogins" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="UserRoles" EntityType="Model.Store.UserRoles" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Users" EntityType="Model.Store.Users" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Accounting" EntityType="Model.Store.Accounting" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="UsersInRoles" EntityType="Model.Store.UsersInRoles" store:Type="Tables" Schema="dbo" />
-    <AssociationSet Name="FK_UserClaims_Users" Association="Model.Store.FK_UserClaims_Users">
-      <End Role="Users" EntitySet="Users" />
-      <End Role="UserClaims" EntitySet="UserClaims" />
-    </AssociationSet>
-    <AssociationSet Name="FK_UserLogins_Users" Association="Model.Store.FK_UserLogins_Users">
-      <End Role="Users" EntitySet="Users" />
-      <End Role="UserLogins" EntitySet="UserLogins" />
-    </AssociationSet>
-    <AssociationSet Name="FK_UsersInRoles_UserRoles" Association="Model.Store.FK_UsersInRoles_UserRoles">
-      <End Role="UserRoles" EntitySet="UserRoles" />
-      <End Role="UsersInRoles" EntitySet="UsersInRoles" />
-    </AssociationSet>
-    <AssociationSet Name="FK_UsersInRoles_Users" Association="Model.Store.FK_UsersInRoles_Users">
-      <End Role="Users" EntitySet="Users" />
-      <End Role="UsersInRoles" EntitySet="UsersInRoles" />
-    </AssociationSet>
-  </EntityContainer>
-  <EntityType Name="UserClaims">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="UserId" Type="nvarchar" Nullable="false" MaxLength="128" />
-    <Property Name="ClaimType" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="ClaimValue" Type="nvarchar(max)" Nullable="true" />
-  </EntityType>
-  <EntityType Name="UserLogins">
-    <Key>
-      <PropertyRef Name="LoginProvider" />
-      <PropertyRef Name="ProviderKey" />
-      <PropertyRef Name="UserId" />
-    </Key>
-    <Property Name="LoginProvider" Type="nvarchar" Nullable="false" MaxLength="128" />
-    <Property Name="ProviderKey" Type="nvarchar" Nullable="false" MaxLength="128" />
-    <Property Name="UserId" Type="nvarchar" Nullable="false" MaxLength="128" />
-  </EntityType>
-  <EntityType Name="UserRoles">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="nvarchar" Nullable="false" MaxLength="128" />
-    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
-    <Property Name="Description" Type="nvarchar(max)" Nullable="true" />
-  </EntityType>
-  <EntityType Name="Users">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="nvarchar" Nullable="false" MaxLength="128" />
-    <Property Name="Email" Type="nvarchar" Nullable="true" MaxLength="128" />
-    <Property Name="EmailConfirmed" Type="bit" Nullable="true" />
-    <Property Name="PasswordHash" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="SecurityStamp" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="PhoneNumber" Type="nvarchar" Nullable="true" MaxLength="25" />
-    <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="true" />
-    <Property Name="TwoFactorEnabled" Type="bit" Nullable="true" />
-    <Property Name="LockoutEndDateUtc" Type="datetime" Nullable="true" />
-    <Property Name="LockoutEnabled" Type="bit" Nullable="true" />
-    <Property Name="AccessFailedCount" Type="int" Nullable="true" />
-    <Property Name="UserName" Type="nvarchar" Nullable="true" MaxLength="50" />
-    <Property Name="LastUpdatedBy" Type="nvarchar" Nullable="true" MaxLength="150" />
-    <Property Name="LastUpdated" Type="datetime" Nullable="true" />
-    <Property Name="CreatedDate" Type="datetime" Nullable="true" />
-    <Property Name="FirstName" Type="nvarchar" Nullable="true" MaxLength="50" />
-    <Property Name="LastName" Type="nvarchar" Nullable="true" MaxLength="50" />
-    <Property Name="MiddleName" Type="nvarchar" Nullable="true" MaxLength="50" />
-    <Property Name="CivilStatus" Type="nvarchar" Nullable="true" MaxLength="12" />
-    <Property Name="Gender" Type="nvarchar" Nullable="true" MaxLength="6" />
-    <Property Name="BirthDate" Type="datetime" Nullable="true" />
-    <Property Name="AddressLine2" Type="nvarchar" Nullable="true" MaxLength="500" />
-    <Property Name="AddressLine1" Type="nvarchar" Nullable="true" MaxLength="500" />
-    <Property Name="TownCity" Type="int" Nullable="true" />
-    <Property Name="Cellular" Type="nvarchar" Nullable="true" MaxLength="25" />
-    <Property Name="Height" Type="decimal" Nullable="true" Precision="5" Scale="2" />
-    <Property Name="Weight" Type="decimal" Nullable="true" Precision="5" Scale="2" />
-    <Property Name="Religion" Type="nvarchar" Nullable="true" MaxLength="50" />
-    <Property Name="Citizenship" Type="nvarchar" Nullable="true" MaxLength="50" />
-    <Property Name="Languages" Type="nvarchar(max)" Nullable="true" />
-  </EntityType>
-  <EntityType Name="Accounting">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Type" Type="varchar" Nullable="true" MaxLength="255" />
-    <Property Name="ParentId" Type="int" Nullable="true" />
-    <Property Name="Amount" Type="decimal" Nullable="true" Precision="19" Scale="4" />
-  </EntityType>
-  <EntityType Name="UsersInRoles">
-    <Key>
-      <PropertyRef Name="UserRoles_Id" />
-      <PropertyRef Name="Users_Id" />
-    </Key>
-    <Property Name="UserRoles_Id" Type="nvarchar" Nullable="false" MaxLength="128" />
-    <Property Name="Users_Id" Type="nvarchar" Nullable="false" MaxLength="128" />
-  </EntityType>
-  <Association Name="FK_UserClaims_Users">
-    <End Role="Users" Type="Model.Store.Users" Multiplicity="1" />
-    <End Role="UserClaims" Type="Model.Store.UserClaims" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Users">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="UserClaims">
-        <PropertyRef Name="UserId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_UserLogins_Users">
-    <End Role="Users" Type="Model.Store.Users" Multiplicity="1" />
-    <End Role="UserLogins" Type="Model.Store.UserLogins" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Users">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="UserLogins">
-        <PropertyRef Name="UserId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_UsersInRoles_UserRoles">
-    <End Role="UserRoles" Type="Model.Store.UserRoles" Multiplicity="1" />
-    <End Role="UsersInRoles" Type="Model.Store.UsersInRoles" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="UserRoles">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="UsersInRoles">
-        <PropertyRef Name="UserRoles_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_UsersInRoles_Users">
-    <End Role="UsersInRoles" Type="Model.Store.UsersInRoles" Multiplicity="*" />
-    <End Role="Users" Type="Model.Store.Users" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Users">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="UsersInRoles">
-        <PropertyRef Name="Users_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-</Schema></edmx:StorageModels>
-    <!-- CSDL content -->
-    <edmx:ConceptualModels>
-      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+    <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Actions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Action" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Activities">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ActivityId" Type="nvarchar" MaxLength="128" />
+          <Property Name="Subject" Type="nvarchar(max)" />
+          <Property Name="ActivityDate" Type="datetime" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Createdby" Type="nvarchar" MaxLength="128" />
+          <Property Name="IsSend" Type="bit" />
+          <Property Name="GroupId" Type="nvarchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="Blotters">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BlotterId" Type="nvarchar" MaxLength="128" />
+          <Property Name="ViolatorId" Type="int" />
+          <Property Name="ComplainantName" Type="nvarchar(max)" />
+          <Property Name="ComplainantAddress" Type="nvarchar(max)" />
+          <Property Name="ComplaintTypeId" Type="int" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="IncidentDate" Type="datetime2" Precision="7" />
+          <Property Name="IncidentPlace" Type="nvarchar(max)" />
+          <Property Name="DateCreated" Type="datetime2" Precision="7" />
+          <Property Name="IsSettled" Type="bit" />
+          <Property Name="IsCleared" Type="bit" />
+        </EntityType>
+        <EntityType Name="Cedulas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PersonalInformationId" Type="int" />
+          <Property Name="CtcNo" Type="int" />
+          <Property Name="DateIssued" Type="datetime" />
+          <Property Name="PlaceIssued" Type="nvarchar(max)" />
+          <Property Name="BasicTax" Type="money" />
+          <Property Name="AdditionalTax" Type="money" />
+          <Property Name="GrossReceipt" Type="money" />
+          <Property Name="GrossEarning" Type="money" />
+          <Property Name="IncomeRealPropertyIndividual" Type="money" />
+          <Property Name="Interest" Type="money" />
+          <Property Name="Total" Type="money" />
+        </EntityType>
+        <EntityType Name="Certifications">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PersonalInformationId" Type="int" Nullable="false" />
+          <Property Name="CertificationTypeId" Type="int" />
+          <Property Name="Purpose" Type="nvarchar(max)" />
+          <Property Name="IssuedDate" Type="datetime2" Precision="7" />
+          <Property Name="CTCNo" Type="nvarchar(max)" />
+          <Property Name="OrNo" Type="nvarchar(max)" />
+          <Property Name="AmountPaid" Type="money" />
+          <Property Name="DateCreated" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="CertificationTypes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CertificationType" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="ComplaintTypes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ComplaintType" Type="nvarchar(max)" />
+          <Property Name="Descriptions" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Dropdowns">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TextField" Type="nvarchar(max)" />
+          <Property Name="ValueField" Type="nvarchar(max)" />
+          <Property Name="TableName" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Employees">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="FamilyMembers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Relationship" Type="nvarchar(max)" />
+          <Property Name="FamilyId" Type="int" />
+          <Property Name="PersonalInformationId" Type="int" />
+        </EntityType>
+        <EntityType Name="Groups">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="GroupName" Type="nvarchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="Logs">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TableName" Type="nvarchar(max)" />
+          <Property Name="OldValues" Type="nvarchar(max)" />
+          <Property Name="NewValues" Type="nvarchar(max)" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="Action" Type="nvarchar(max)" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="Meetings">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MeetingId" Type="nvarchar" MaxLength="128" />
+          <Property Name="Subject" Type="nvarchar(max)" />
+          <Property Name="ActivityDate" Type="datetime" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Createdby" Type="nvarchar" MaxLength="128" />
+          <Property Name="IsSend" Type="bit" />
+          <Property Name="GroupId" Type="nvarchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="PersonalInformations">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar(max)" />
+          <Property Name="MiddleName" Type="nvarchar(max)" />
+          <Property Name="LastName" Type="nvarchar(max)" />
+          <Property Name="Ext" Type="nvarchar" MaxLength="50" />
+          <Property Name="ContactNumber" Type="nvarchar" MaxLength="128" />
+          <Property Name="AddressLine1" Type="nvarchar(max)" />
+          <Property Name="AddressLine2" Type="nvarchar(max)" />
+          <Property Name="Birthdate" Type="datetime" />
+          <Property Name="BirthPlace" Type="nvarchar(max)" />
+          <Property Name="Sex" Type="nvarchar" MaxLength="50" />
+          <Property Name="CivilStatus" Type="nvarchar" MaxLength="50" />
+          <Property Name="Citizenship" Type="nvarchar" MaxLength="50" />
+          <Property Name="Photo" Type="varbinary(max)" />
+          <Property Name="ICR" Type="nvarchar(max)" />
+          <Property Name="Height" Type="money" />
+          <Property Name="Weight" Type="money" />
+          <Property Name="Occupation" Type="nvarchar(max)" />
+          <Property Name="TinNo" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Provinces">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="SortOrder" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="ResidentsInGroups">
+          <Key>
+            <PropertyRef Name="ResidentId" />
+            <PropertyRef Name="GroupId" />
+          </Key>
+          <Property Name="ResidentId" Type="int" Nullable="false" />
+          <Property Name="GroupId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Templates">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ReportName" Type="nvarchar(max)" />
+          <Property Name="Template" Type="varbinary(max)" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="Towns">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="ProvinceId" Type="int" />
+          <Property Name="SortOrder" Type="int" />
+        </EntityType>
         <EntityType Name="UserClaims">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Users" Relationship="Self.FK_UserClaims_Users" FromRole="UserClaims" ToRole="Users" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="UserLogins">
           <Key>
@@ -176,58 +218,217 @@
             <PropertyRef Name="ProviderKey" />
             <PropertyRef Name="UserId" />
           </Key>
-          <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Users" Relationship="Self.FK_UserLogins_Users" FromRole="UserLogins" ToRole="Users" />
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
         <EntityType Name="UserRoles">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Users" Relationship="Self.UsersInRoles" FromRole="UserRoles" ToRole="Users" />
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="UserRolesInActions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" />
+          <Property Name="Action" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="EmailConfirmed" Type="Boolean" />
-          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="PhoneNumber" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Name="PhoneNumberConfirmed" Type="Boolean" />
-          <Property Name="TwoFactorEnabled" Type="Boolean" />
-          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
-          <Property Name="LockoutEnabled" Type="Boolean" />
-          <Property Name="AccessFailedCount" Type="Int32" />
-          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="LastUpdatedBy" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="LastUpdated" Type="DateTime" Precision="3" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="0" />
-          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="MiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CivilStatus" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
-          <Property Name="Gender" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
-          <Property Name="BirthDate" Type="DateTime" Precision="0" />
-          <Property Name="AddressLine2" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="AddressLine1" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="TownCity" Type="Int32" />
-          <Property Name="Cellular" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Name="Height" Type="Decimal" Precision="5" Scale="2" />
-          <Property Name="Weight" Type="Decimal" Precision="5" Scale="2" />
-          <Property Name="Religion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Citizenship" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Languages" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="UserClaims" Relationship="Self.FK_UserClaims_Users" FromRole="Users" ToRole="UserClaims" />
-          <NavigationProperty Name="UserLogins" Relationship="Self.FK_UserLogins_Users" FromRole="Users" ToRole="UserLogins" />
-          <NavigationProperty Name="UserRoles" Relationship="Self.UsersInRoles" FromRole="Users" ToRole="UserRoles" />
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="128" />
+          <Property Name="EmailConfirmed" Type="bit" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="25" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" />
+          <Property Name="TwoFactorEnabled" Type="bit" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" />
+          <Property Name="AccessFailedCount" Type="int" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastUpdatedBy" Type="nvarchar" MaxLength="150" />
+          <Property Name="LastUpdated" Type="datetime" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+          <Property Name="MiddleName" Type="nvarchar" MaxLength="50" />
+          <Property Name="CivilStatus" Type="nvarchar" MaxLength="12" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="6" />
+          <Property Name="BirthDate" Type="datetime" />
+          <Property Name="AddressLine2" Type="nvarchar" MaxLength="500" />
+          <Property Name="AddressLine1" Type="nvarchar" MaxLength="500" />
+          <Property Name="TownCity" Type="int" />
+          <Property Name="Cellular" Type="nvarchar" MaxLength="25" />
+          <Property Name="Height" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="Weight" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="Religion" Type="nvarchar" MaxLength="50" />
+          <Property Name="Citizenship" Type="nvarchar" MaxLength="50" />
+          <Property Name="Languages" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="UsersInRoles">
+          <Key>
+            <PropertyRef Name="UserRoles_Id" />
+            <PropertyRef Name="Users_Id" />
+          </Key>
+          <Property Name="UserRoles_Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Users_Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Activities_Groups">
+          <End Role="Groups" Type="Self.Groups" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Activities" Type="Self.Activities" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Activities">
+              <PropertyRef Name="GroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BarangayClearances_PersonalInformations">
+          <End Role="PersonalInformations" Type="Self.PersonalInformations" Multiplicity="1" />
+          <End Role="Certifications" Type="Self.Certifications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonalInformations">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Certifications">
+              <PropertyRef Name="PersonalInformationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Blotters_Complaint">
+          <End Role="PersonalInformations" Type="Self.PersonalInformations" Multiplicity="0..1" />
+          <End Role="Blotters" Type="Self.Blotters" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonalInformations">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Blotters">
+              <PropertyRef Name="ViolatorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Blotters_ComplaintTypes">
+          <End Role="ComplaintTypes" Type="Self.ComplaintTypes" Multiplicity="0..1" />
+          <End Role="Blotters" Type="Self.Blotters" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ComplaintTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Blotters">
+              <PropertyRef Name="ComplaintTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cedulas_PersonalInformations">
+          <End Role="PersonalInformations" Type="Self.PersonalInformations" Multiplicity="0..1" />
+          <End Role="Cedulas" Type="Self.Cedulas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonalInformations">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cedulas">
+              <PropertyRef Name="PersonalInformationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Certifications_CertificationTypes">
+          <End Role="CertificationTypes" Type="Self.CertificationTypes" Multiplicity="0..1" />
+          <End Role="Certifications" Type="Self.Certifications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CertificationTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Certifications">
+              <PropertyRef Name="CertificationTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employees_Employees">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="Employees1" Type="Self.Employees" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Employees1">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Logs_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Logs" Type="Self.Logs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Logs">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Meetings_Groups">
+          <End Role="Groups" Type="Self.Groups" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Meetings" Type="Self.Meetings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Meetings">
+              <PropertyRef Name="GroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ResidentsInGroups_Groups">
+          <End Role="Groups" Type="Self.Groups" Multiplicity="1" />
+          <End Role="ResidentsInGroups" Type="Self.ResidentsInGroups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ResidentsInGroups">
+              <PropertyRef Name="GroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ResidentsInGroups_PersonalInformations">
+          <End Role="PersonalInformations" Type="Self.PersonalInformations" Multiplicity="1" />
+          <End Role="ResidentsInGroups" Type="Self.ResidentsInGroups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonalInformations">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ResidentsInGroups">
+              <PropertyRef Name="ResidentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Towns_Towns">
+          <End Role="Provinces" Type="Self.Provinces" Multiplicity="0..1" />
+          <End Role="Towns" Type="Self.Towns" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provinces">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Towns">
+              <PropertyRef Name="ProvinceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_UserClaims_Users">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
           <End Role="UserClaims" Type="Self.UserClaims" Multiplicity="*" />
@@ -252,15 +453,115 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="UsersInRoles">
-          <End Role="UserRoles" Type="Self.UserRoles" Multiplicity="*" />
-          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+        <Association Name="FK_UserRolesInActions_UserRoles">
+          <End Role="UserRoles" Type="Self.UserRoles" Multiplicity="0..1" />
+          <End Role="UserRolesInActions" Type="Self.UserRolesInActions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserRolesInActions">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="ModelDb" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="UserClaims" EntityType="Self.UserClaims" />
-          <EntitySet Name="UserLogins" EntityType="Self.UserLogins" />
-          <EntitySet Name="UserRoles" EntityType="Self.UserRoles" />
-          <EntitySet Name="Users" EntityType="Self.Users" />
+        <Association Name="FK_UsersInRoles_UserRoles">
+          <End Role="UserRoles" Type="Self.UserRoles" Multiplicity="1" />
+          <End Role="UsersInRoles" Type="Self.UsersInRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UsersInRoles">
+              <PropertyRef Name="UserRoles_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsersInRoles_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="UsersInRoles" Type="Self.UsersInRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UsersInRoles">
+              <PropertyRef Name="Users_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="Actions" EntityType="Self.Actions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Activities" EntityType="Self.Activities" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Blotters" EntityType="Self.Blotters" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cedulas" EntityType="Self.Cedulas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Certifications" EntityType="Self.Certifications" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CertificationTypes" EntityType="Self.CertificationTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ComplaintTypes" EntityType="Self.ComplaintTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Dropdowns" EntityType="Self.Dropdowns" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FamilyMembers" EntityType="Self.FamilyMembers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Groups" EntityType="Self.Groups" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Logs" EntityType="Self.Logs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Meetings" EntityType="Self.Meetings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PersonalInformations" EntityType="Self.PersonalInformations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Provinces" EntityType="Self.Provinces" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ResidentsInGroups" EntityType="Self.ResidentsInGroups" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Templates" EntityType="Self.Templates" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Towns" EntityType="Self.Towns" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserClaims" EntityType="Self.UserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserLogins" EntityType="Self.UserLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRoles" EntityType="Self.UserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRolesInActions" EntityType="Self.UserRolesInActions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsersInRoles" EntityType="Self.UsersInRoles" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Activities_Groups" Association="Self.FK_Activities_Groups">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="Activities" EntitySet="Activities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BarangayClearances_PersonalInformations" Association="Self.FK_BarangayClearances_PersonalInformations">
+            <End Role="PersonalInformations" EntitySet="PersonalInformations" />
+            <End Role="Certifications" EntitySet="Certifications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Blotters_Complaint" Association="Self.FK_Blotters_Complaint">
+            <End Role="PersonalInformations" EntitySet="PersonalInformations" />
+            <End Role="Blotters" EntitySet="Blotters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Blotters_ComplaintTypes" Association="Self.FK_Blotters_ComplaintTypes">
+            <End Role="ComplaintTypes" EntitySet="ComplaintTypes" />
+            <End Role="Blotters" EntitySet="Blotters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cedulas_PersonalInformations" Association="Self.FK_Cedulas_PersonalInformations">
+            <End Role="PersonalInformations" EntitySet="PersonalInformations" />
+            <End Role="Cedulas" EntitySet="Cedulas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Certifications_CertificationTypes" Association="Self.FK_Certifications_CertificationTypes">
+            <End Role="CertificationTypes" EntitySet="CertificationTypes" />
+            <End Role="Certifications" EntitySet="Certifications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employees_Employees" Association="Self.FK_Employees_Employees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Employees1" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Logs_Users" Association="Self.FK_Logs_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Logs" EntitySet="Logs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Meetings_Groups" Association="Self.FK_Meetings_Groups">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="Meetings" EntitySet="Meetings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ResidentsInGroups_Groups" Association="Self.FK_ResidentsInGroups_Groups">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="ResidentsInGroups" EntitySet="ResidentsInGroups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ResidentsInGroups_PersonalInformations" Association="Self.FK_ResidentsInGroups_PersonalInformations">
+            <End Role="PersonalInformations" EntitySet="PersonalInformations" />
+            <End Role="ResidentsInGroups" EntitySet="ResidentsInGroups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Towns_Towns" Association="Self.FK_Towns_Towns">
+            <End Role="Provinces" EntitySet="Provinces" />
+            <End Role="Towns" EntitySet="Towns" />
+          </AssociationSet>
           <AssociationSet Name="FK_UserClaims_Users" Association="Self.FK_UserClaims_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="UserClaims" EntitySet="UserClaims" />
@@ -269,22 +570,566 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="UserLogins" EntitySet="UserLogins" />
           </AssociationSet>
-          <AssociationSet Name="UsersInRoles" Association="Self.UsersInRoles">
+          <AssociationSet Name="FK_UserRolesInActions_UserRoles" Association="Self.FK_UserRolesInActions_UserRoles">
+            <End Role="UserRoles" EntitySet="UserRoles" />
+            <End Role="UserRolesInActions" EntitySet="UserRolesInActions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsersInRoles_UserRoles" Association="Self.FK_UsersInRoles_UserRoles">
+            <End Role="UserRoles" EntitySet="UserRoles" />
+            <End Role="UsersInRoles" EntitySet="UsersInRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsersInRoles_Users" Association="Self.FK_UsersInRoles_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UsersInRoles" EntitySet="UsersInRoles" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ModelDb" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="UserClaims" EntityType="Model.UserClaims" />
+          <EntitySet Name="UserLogins" EntityType="Model.UserLogins" />
+          <EntitySet Name="UserRoles" EntityType="Model.UserRoles" />
+          <EntitySet Name="Users" EntityType="Model.Users" />
+          <AssociationSet Name="FK_UserClaims_Users" Association="Model.FK_UserClaims_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserClaims" EntitySet="UserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserLogins_Users" Association="Model.FK_UserLogins_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserLogins" EntitySet="UserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="UsersInRoles" Association="Model.UsersInRoles">
             <End Role="UserRoles" EntitySet="UserRoles" />
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
-          <EntitySet Name="Accounting" EntityType="Model.Accounting" />
-        </EntityContainer>
-        <EntityType Name="Accounting">
+          <EntitySet Name="Actions" EntityType="Model.Actions" />
+          <EntitySet Name="UserRolesInActions" EntityType="Model.UserRolesInActions" />
+          <AssociationSet Name="FK_UserRolesInActions_UserRoles" Association="Model.FK_UserRolesInActions_UserRoles">
+            <End Role="UserRoles" EntitySet="UserRoles" />
+            <End Role="UserRolesInActions" EntitySet="UserRolesInActions" />
+          </AssociationSet>
+          <EntitySet Name="Provinces" EntityType="Model.Provinces" />
+          <EntitySet Name="Towns" EntityType="Model.Towns" />
+          <AssociationSet Name="FK_Towns_Towns" Association="Model.FK_Towns_Towns">
+            <End Role="Provinces" EntitySet="Provinces" />
+            <End Role="Towns" EntitySet="Towns" />
+          </AssociationSet>
+          <EntitySet Name="Logs" EntityType="Model.Logs" />
+          <AssociationSet Name="FK_Logs_Users" Association="Model.FK_Logs_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Logs" EntitySet="Logs" />
+          </AssociationSet>
+          <EntitySet Name="Activities" EntityType="Model.Activities" />
+          <EntitySet Name="Certifications" EntityType="Model.Certifications" />
+          <EntitySet Name="FamilyMembers" EntityType="Model.FamilyMembers" />
+          <EntitySet Name="Meetings" EntityType="Model.Meetings" />
+          <EntitySet Name="Blotters" EntityType="Model.Blotters" />
+          <EntitySet Name="Dropdowns" EntityType="Model.Dropdowns" />
+          <EntitySet Name="PersonalInformations" EntityType="Model.PersonalInformations" />
+          <AssociationSet Name="FK_Blotters_Complaint" Association="Model.FK_Blotters_Complaint">
+            <End Role="PersonalInformations" EntitySet="PersonalInformations" />
+            <End Role="Blotters" EntitySet="Blotters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BarangayClearances_PersonalInformations" Association="Model.FK_BarangayClearances_PersonalInformations">
+            <End Role="PersonalInformations" EntitySet="PersonalInformations" />
+            <End Role="Certifications" EntitySet="Certifications" />
+          </AssociationSet>
+          <EntitySet Name="ComplaintTypes" EntityType="Model.ComplaintTypes" />
+          <AssociationSet Name="FK_Blotters_ComplaintTypes" Association="Model.FK_Blotters_ComplaintTypes">
+            <End Role="ComplaintTypes" EntitySet="ComplaintTypes" />
+            <End Role="Blotters" EntitySet="Blotters" />
+          </AssociationSet>
+          <EntitySet Name="CertificationTypes" EntityType="Model.CertificationTypes" />
+          <AssociationSet Name="FK_Certifications_CertificationTypes" Association="Model.FK_Certifications_CertificationTypes">
+            <End Role="CertificationTypes" EntitySet="CertificationTypes" />
+            <End Role="Certifications" EntitySet="Certifications" />
+          </AssociationSet>
+          <EntitySet Name="Templates" EntityType="Model.Templates" />
+          <EntitySet Name="Employees" EntityType="Model.Employees" />
+          <AssociationSet Name="FK_Employees_Employees" Association="Model.FK_Employees_Employees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Employees1" EntitySet="Employees" />
+          </AssociationSet>
+          <EntitySet Name="Groups" EntityType="Model.Groups" />
+          <AssociationSet Name="ResidentsInGroups" Association="Model.ResidentsInGroups">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="PersonalInformations" EntitySet="PersonalInformations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Activities_Groups" Association="Model.FK_Activities_Groups">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="Activities" EntitySet="Activities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Meetings_Groups" Association="Model.FK_Meetings_Groups">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="Meetings" EntitySet="Meetings" />
+          </AssociationSet>
+          <EntitySet Name="Cedulas" EntityType="Model.Cedulas" />
+          <AssociationSet Name="FK_Cedulas_PersonalInformations" Association="Model.FK_Cedulas_PersonalInformations">
+            <End Role="PersonalInformations" EntitySet="PersonalInformations" />
+            <End Role="Cedulas" EntitySet="Cedulas" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="UserClaims">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="ParentId" Type="Int32" />
-          <Property Name="Amount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="Model.FK_UserClaims_Users" FromRole="UserClaims" ToRole="Users" />
         </EntityType>
-      </Schema>
+        <EntityType Name="UserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="Model.FK_UserLogins_Users" FromRole="UserLogins" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="UserRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="Model.UsersInRoles" FromRole="UserRoles" ToRole="Users" />
+          <NavigationProperty Name="UserRolesInActions" Relationship="Model.FK_UserRolesInActions_UserRoles" FromRole="UserRoles" ToRole="UserRolesInActions" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" />
+          <Property Name="AccessFailedCount" Type="Int32" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastUpdatedBy" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="LastUpdated" Type="DateTime" Precision="3" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CivilStatus" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="BirthDate" Type="DateTime" Precision="3" />
+          <Property Name="AddressLine2" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="AddressLine1" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="TownCity" Type="Int32" />
+          <Property Name="Cellular" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Height" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="Weight" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="Religion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Citizenship" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Languages" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserClaims" Relationship="Model.FK_UserClaims_Users" FromRole="Users" ToRole="UserClaims" />
+          <NavigationProperty Name="UserLogins" Relationship="Model.FK_UserLogins_Users" FromRole="Users" ToRole="UserLogins" />
+          <NavigationProperty Name="UserRoles" Relationship="Model.UsersInRoles" FromRole="Users" ToRole="UserRoles" />
+          <NavigationProperty Name="Logs" Relationship="Model.FK_Logs_Users" FromRole="Users" ToRole="Logs" />
+        </EntityType>
+        <Association Name="FK_UserClaims_Users">
+          <End Type="Model.Users" Role="Users" Multiplicity="1" />
+          <End Type="Model.UserClaims" Role="UserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserLogins_Users">
+          <End Type="Model.Users" Role="Users" Multiplicity="1" />
+          <End Type="Model.UserLogins" Role="UserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UsersInRoles">
+          <End Type="Model.UserRoles" Role="UserRoles" Multiplicity="*" />
+          <End Type="Model.Users" Role="Users" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Actions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Action" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="UserRolesInActions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Action" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserRoles" Relationship="Model.FK_UserRolesInActions_UserRoles" FromRole="UserRolesInActions" ToRole="UserRoles" />
+        </EntityType>
+        <Association Name="FK_UserRolesInActions_UserRoles">
+          <End Type="Model.UserRoles" Role="UserRoles" Multiplicity="0..1" />
+          <End Type="Model.UserRolesInActions" Role="UserRolesInActions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserRolesInActions">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Provinces">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SortOrder" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Towns" Relationship="Model.FK_Towns_Towns" FromRole="Provinces" ToRole="Towns" />
+        </EntityType>
+        <EntityType Name="Towns">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProvinceId" Type="Int32" />
+          <Property Name="SortOrder" Type="Int32" />
+          <NavigationProperty Name="Provinces" Relationship="Model.FK_Towns_Towns" FromRole="Towns" ToRole="Provinces" />
+        </EntityType>
+        <Association Name="FK_Towns_Towns">
+          <End Type="Model.Provinces" Role="Provinces" Multiplicity="0..1" />
+          <End Type="Model.Towns" Role="Towns" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provinces">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Towns">
+              <PropertyRef Name="ProvinceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Logs">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TableName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OldValues" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NewValues" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="Action" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="Model.FK_Logs_Users" FromRole="Logs" ToRole="Users" />
+        </EntityType>
+        <Association Name="FK_Logs_Users">
+          <End Type="Model.Users" Role="Users" Multiplicity="0..1" />
+          <End Type="Model.Logs" Role="Logs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Logs">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Activities">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ActivityId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Subject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ActivityDate" Type="DateTime" Precision="3" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Createdby" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="IsSend" Type="Boolean" />
+          <Property Name="GroupId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Groups" Relationship="Model.FK_Activities_Groups" FromRole="Activities" ToRole="Groups" />
+        </EntityType>
+        <EntityType Name="Certifications">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PersonalInformationId" Type="Int32" Nullable="false" />
+          <Property Name="CertificationTypeId" Type="Int32" />
+          <Property Name="IssuedDate" Type="DateTime" Precision="7" />
+          <Property Name="Purpose" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateCreated" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="PersonalInformations" Relationship="Model.FK_BarangayClearances_PersonalInformations" FromRole="Certifications" ToRole="PersonalInformations" />
+          <NavigationProperty Name="CertificationTypes" Relationship="Model.FK_Certifications_CertificationTypes" FromRole="Certifications" ToRole="CertificationTypes" />
+          <Property Name="CTCNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OrNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AmountPaid" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="FamilyMembers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Relationship" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FamilyId" Type="Int32" />
+          <Property Name="PersonalInformationId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Meetings">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MeetingId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Subject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ActivityDate" Type="DateTime" Precision="3" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Createdby" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="IsSend" Type="Boolean" />
+          <Property Name="GroupId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Groups" Relationship="Model.FK_Meetings_Groups" FromRole="Meetings" ToRole="Groups" />
+        </EntityType>
+        <EntityType Name="Blotters">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ViolatorId" Type="Int32" />
+          <Property Name="ComplainantName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ComplainantAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ComplaintTypeId" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IncidentDate" Type="DateTime" Precision="7" />
+          <Property Name="DateCreated" Type="DateTime" Precision="7" />
+          <Property Name="BlotterId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="IncidentPlace" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PersonalInformations" Relationship="Model.FK_Blotters_Complaint" FromRole="Blotters" ToRole="PersonalInformations" />
+          <NavigationProperty Name="ComplaintTypes" Relationship="Model.FK_Blotters_ComplaintTypes" FromRole="Blotters" ToRole="ComplaintTypes" />
+          <Property Name="IsSettled" Type="Boolean" />
+          <Property Name="IsCleared" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Dropdowns">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TextField" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ValueField" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TableName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="PersonalInformations">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MiddleName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Ext" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ContactNumber" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="AddressLine1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AddressLine2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Birthdate" Type="DateTime" Precision="3" />
+          <Property Name="BirthPlace" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Sex" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CivilStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Citizenship" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Blotters" Relationship="Model.FK_Blotters_Complaint" FromRole="PersonalInformations" ToRole="Blotters" />
+          <NavigationProperty Name="Certifications" Relationship="Model.FK_BarangayClearances_PersonalInformations" FromRole="PersonalInformations" ToRole="Certifications" />
+          <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Groups" Relationship="Model.ResidentsInGroups" FromRole="PersonalInformations" ToRole="Groups" />
+          <Property Name="ICR" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Height" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Weight" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Occupation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TinNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Cedulas" Relationship="Model.FK_Cedulas_PersonalInformations" FromRole="PersonalInformations" ToRole="Cedulas" />
+        </EntityType>
+        <Association Name="FK_Blotters_Complaint">
+          <End Type="Model.PersonalInformations" Role="PersonalInformations" Multiplicity="0..1" />
+          <End Type="Model.Blotters" Role="Blotters" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonalInformations">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Blotters">
+              <PropertyRef Name="ViolatorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BarangayClearances_PersonalInformations">
+          <End Type="Model.PersonalInformations" Role="PersonalInformations" Multiplicity="1" />
+          <End Type="Model.Certifications" Role="Certifications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonalInformations">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Certifications">
+              <PropertyRef Name="PersonalInformationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ComplaintTypes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ComplaintType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Descriptions" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Blotters" Relationship="Model.FK_Blotters_ComplaintTypes" FromRole="ComplaintTypes" ToRole="Blotters" />
+        </EntityType>
+        <Association Name="FK_Blotters_ComplaintTypes">
+          <End Type="Model.ComplaintTypes" Role="ComplaintTypes" Multiplicity="0..1" />
+          <End Type="Model.Blotters" Role="Blotters" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ComplaintTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Blotters">
+              <PropertyRef Name="ComplaintTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CertificationTypes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CertificationType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Certifications" Relationship="Model.FK_Certifications_CertificationTypes" FromRole="CertificationTypes" ToRole="Certifications" />
+        </EntityType>
+        <Association Name="FK_Certifications_CertificationTypes">
+          <End Type="Model.CertificationTypes" Role="CertificationTypes" Multiplicity="0..1" />
+          <End Type="Model.Certifications" Role="Certifications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CertificationTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Certifications">
+              <PropertyRef Name="CertificationTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Templates">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReportName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Template" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Employees">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Employees1" Relationship="Model.FK_Employees_Employees" FromRole="Employees" ToRole="Employees1" />
+          <NavigationProperty Name="Employees2" Relationship="Model.FK_Employees_Employees" FromRole="Employees1" ToRole="Employees" />
+        </EntityType>
+        <Association Name="FK_Employees_Employees">
+          <End Type="Model.Employees" Role="Employees" Multiplicity="1" />
+          <End Type="Model.Employees" Role="Employees1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Employees1">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Groups">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="GroupName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PersonalInformations" Relationship="Model.ResidentsInGroups" FromRole="Groups" ToRole="PersonalInformations" />
+          <NavigationProperty Name="Activities" Relationship="Model.FK_Activities_Groups" FromRole="Groups" ToRole="Activities" />
+          <NavigationProperty Name="Meetings" Relationship="Model.FK_Meetings_Groups" FromRole="Groups" ToRole="Meetings" />
+        </EntityType>
+        <Association Name="ResidentsInGroups">
+          <End Type="Model.Groups" Role="Groups" Multiplicity="*" />
+          <End Type="Model.PersonalInformations" Role="PersonalInformations" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_Activities_Groups">
+          <End Type="Model.Groups" Role="Groups" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Model.Activities" Role="Activities" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Activities">
+              <PropertyRef Name="GroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Meetings_Groups">
+          <End Type="Model.Groups" Role="Groups" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Model.Meetings" Role="Meetings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Meetings">
+              <PropertyRef Name="GroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Cedulas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PersonalInformationId" Type="Int32" />
+          <Property Name="CtcNo" Type="Int32" />
+          <Property Name="DateIssued" Type="DateTime" Precision="3" />
+          <Property Name="PlaceIssued" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BasicTax" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="AdditionalTax" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="GrossReceipt" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="GrossEarning" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="IncomeRealPropertyIndividual" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Interest" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Total" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="PersonalInformations" Relationship="Model.FK_Cedulas_PersonalInformations" FromRole="Cedulas" ToRole="PersonalInformations" />
+        </EntityType>
+        <Association Name="FK_Cedulas_PersonalInformations">
+          <End Type="Model.PersonalInformations" Role="PersonalInformations" Multiplicity="0..1" />
+          <End Type="Model.Cedulas" Role="Cedulas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonalInformations">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cedulas">
+              <PropertyRef Name="PersonalInformationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -354,13 +1199,52 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Accounting">
-      <EntityTypeMapping TypeName="IsTypeOf(Model.Accounting)">
-        <MappingFragment StoreEntitySet="Accounting">
+    <EntitySetMapping Name="Actions">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Actions)">
+        <MappingFragment StoreEntitySet="Actions">
           <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Type" ColumnName="Type" />
-          <ScalarProperty Name="ParentId" ColumnName="ParentId" />
-          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="Action" ColumnName="Action" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserRolesInActions">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.UserRolesInActions)">
+        <MappingFragment StoreEntitySet="UserRolesInActions">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="Action" ColumnName="Action" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Provinces">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Provinces)">
+        <MappingFragment StoreEntitySet="Provinces">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Towns">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Towns)">
+        <MappingFragment StoreEntitySet="Towns">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ProvinceId" ColumnName="ProvinceId" />
+          <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Logs">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Logs)">
+        <MappingFragment StoreEntitySet="Logs">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="TableName" ColumnName="TableName" />
+          <ScalarProperty Name="OldValues" ColumnName="OldValues" />
+          <ScalarProperty Name="NewValues" ColumnName="NewValues" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="Action" ColumnName="Action" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -372,7 +1256,182 @@
         <ScalarProperty Name="Id" ColumnName="Users_Id" />
       </EndProperty>
     </AssociationSetMapping>
-  </EntityContainerMapping>
+          <EntitySetMapping Name="Activities">
+            <EntityTypeMapping TypeName="Model.Activities">
+              <MappingFragment StoreEntitySet="Activities">
+                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+                <ScalarProperty Name="IsSend" ColumnName="IsSend" />
+                <ScalarProperty Name="Createdby" ColumnName="Createdby" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ActivityDate" ColumnName="ActivityDate" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="ActivityId" ColumnName="ActivityId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Certifications">
+            <EntityTypeMapping TypeName="Model.Certifications">
+              <MappingFragment StoreEntitySet="Certifications">
+                <ScalarProperty Name="AmountPaid" ColumnName="AmountPaid" />
+                <ScalarProperty Name="OrNo" ColumnName="OrNo" />
+                <ScalarProperty Name="CTCNo" ColumnName="CTCNo" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Purpose" ColumnName="Purpose" />
+                <ScalarProperty Name="IssuedDate" ColumnName="IssuedDate" />
+                <ScalarProperty Name="CertificationTypeId" ColumnName="CertificationTypeId" />
+                <ScalarProperty Name="PersonalInformationId" ColumnName="PersonalInformationId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FamilyMembers">
+            <EntityTypeMapping TypeName="Model.FamilyMembers">
+              <MappingFragment StoreEntitySet="FamilyMembers">
+                <ScalarProperty Name="PersonalInformationId" ColumnName="PersonalInformationId" />
+                <ScalarProperty Name="FamilyId" ColumnName="FamilyId" />
+                <ScalarProperty Name="Relationship" ColumnName="Relationship" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Meetings">
+            <EntityTypeMapping TypeName="Model.Meetings">
+              <MappingFragment StoreEntitySet="Meetings">
+                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+                <ScalarProperty Name="IsSend" ColumnName="IsSend" />
+                <ScalarProperty Name="Createdby" ColumnName="Createdby" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ActivityDate" ColumnName="ActivityDate" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="MeetingId" ColumnName="MeetingId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Blotters">
+            <EntityTypeMapping TypeName="Model.Blotters">
+              <MappingFragment StoreEntitySet="Blotters">
+                <ScalarProperty Name="IsCleared" ColumnName="IsCleared" />
+                <ScalarProperty Name="IsSettled" ColumnName="IsSettled" />
+                <ScalarProperty Name="IncidentPlace" ColumnName="IncidentPlace" />
+                <ScalarProperty Name="BlotterId" ColumnName="BlotterId" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="IncidentDate" ColumnName="IncidentDate" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ComplaintTypeId" ColumnName="ComplaintTypeId" />
+                <ScalarProperty Name="ComplainantAddress" ColumnName="ComplainantAddress" />
+                <ScalarProperty Name="ComplainantName" ColumnName="ComplainantName" />
+                <ScalarProperty Name="ViolatorId" ColumnName="ViolatorId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Dropdowns">
+            <EntityTypeMapping TypeName="Model.Dropdowns">
+              <MappingFragment StoreEntitySet="Dropdowns">
+                <ScalarProperty Name="TableName" ColumnName="TableName" />
+                <ScalarProperty Name="ValueField" ColumnName="ValueField" />
+                <ScalarProperty Name="TextField" ColumnName="TextField" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PersonalInformations">
+            <EntityTypeMapping TypeName="Model.PersonalInformations">
+              <MappingFragment StoreEntitySet="PersonalInformations">
+                <ScalarProperty Name="TinNo" ColumnName="TinNo" />
+                <ScalarProperty Name="Occupation" ColumnName="Occupation" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="Height" ColumnName="Height" />
+                <ScalarProperty Name="ICR" ColumnName="ICR" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="Citizenship" ColumnName="Citizenship" />
+                <ScalarProperty Name="CivilStatus" ColumnName="CivilStatus" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="BirthPlace" ColumnName="BirthPlace" />
+                <ScalarProperty Name="Birthdate" ColumnName="Birthdate" />
+                <ScalarProperty Name="AddressLine2" ColumnName="AddressLine2" />
+                <ScalarProperty Name="AddressLine1" ColumnName="AddressLine1" />
+                <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+                <ScalarProperty Name="Ext" ColumnName="Ext" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ComplaintTypes">
+            <EntityTypeMapping TypeName="Model.ComplaintTypes">
+              <MappingFragment StoreEntitySet="ComplaintTypes">
+                <ScalarProperty Name="Descriptions" ColumnName="Descriptions" />
+                <ScalarProperty Name="ComplaintType" ColumnName="ComplaintType" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CertificationTypes">
+            <EntityTypeMapping TypeName="Model.CertificationTypes">
+              <MappingFragment StoreEntitySet="CertificationTypes">
+                <ScalarProperty Name="CertificationType" ColumnName="CertificationType" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Templates">
+            <EntityTypeMapping TypeName="Model.Templates">
+              <MappingFragment StoreEntitySet="Templates">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Template" ColumnName="Template" />
+                <ScalarProperty Name="ReportName" ColumnName="ReportName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="Model.Employees">
+              <MappingFragment StoreEntitySet="Employees">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Groups">
+            <EntityTypeMapping TypeName="Model.Groups">
+              <MappingFragment StoreEntitySet="Groups">
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="ResidentsInGroups" TypeName="Model.ResidentsInGroups" StoreEntitySet="ResidentsInGroups">
+            <EndProperty Name="PersonalInformations">
+              <ScalarProperty Name="Id" ColumnName="ResidentId" />
+            </EndProperty>
+            <EndProperty Name="Groups">
+              <ScalarProperty Name="Id" ColumnName="GroupId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="Cedulas">
+            <EntityTypeMapping TypeName="Model.Cedulas">
+              <MappingFragment StoreEntitySet="Cedulas">
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="Interest" ColumnName="Interest" />
+                <ScalarProperty Name="IncomeRealPropertyIndividual" ColumnName="IncomeRealPropertyIndividual" />
+                <ScalarProperty Name="GrossEarning" ColumnName="GrossEarning" />
+                <ScalarProperty Name="GrossReceipt" ColumnName="GrossReceipt" />
+                <ScalarProperty Name="AdditionalTax" ColumnName="AdditionalTax" />
+                <ScalarProperty Name="BasicTax" ColumnName="BasicTax" />
+                <ScalarProperty Name="PlaceIssued" ColumnName="PlaceIssued" />
+                <ScalarProperty Name="DateIssued" ColumnName="DateIssued" />
+                <ScalarProperty Name="CtcNo" ColumnName="CtcNo" />
+                <ScalarProperty Name="PersonalInformationId" ColumnName="PersonalInformationId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->

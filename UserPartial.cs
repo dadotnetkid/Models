@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Linq.Expressions;
@@ -10,7 +11,7 @@ using Microsoft.AspNet.Identity;
 
 namespace Models
 {
-
+    [MetadataType(typeof(UsersMeta))]
     public partial class Users : IUser<string>
     {
 
@@ -19,7 +20,7 @@ namespace Models
             get { return FirstName + " " + LastName; }
         }
 
-       
+
         public string UserRole
         {
             get
@@ -30,6 +31,9 @@ namespace Models
 
             }
         }
+
+        [NotMapped]
+        public string Password { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<Users, string> manager)
         {
@@ -42,5 +46,18 @@ namespace Models
         }
 
 
+    }
+
+
+    public class UsersMeta
+    {
+        [EmailAddress]
+        [Required(ErrorMessage ="Required")]
+        public string Email { get; set; }
+        [Required(ErrorMessage = "Required")]
+        public string FirstName { get; set; }
+      [Required(ErrorMessage = "Required")]
+        public string LastName { get; set; }
+       
     }
 }

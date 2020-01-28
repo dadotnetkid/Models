@@ -8,9 +8,15 @@ namespace Models
 {
     public partial class ModelDb
     {
+        
         public static ModelDb Create()
         {
             return new ModelDb();
+        }
+
+        public static void SetConnection(string connection,string userName,string password)
+        {
+           
         }
     }
 }

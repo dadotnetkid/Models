@@ -12,11 +12,11 @@ namespace Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Accounting
+    public partial class Templates
     {
         public int Id { get; set; }
-        public string Type { get; set; }
-        public Nullable<int> ParentId { get; set; }
-        public Nullable<decimal> Amount { get; set; }
+        public string ReportName { get; set; }
+        public byte[] Template { get; set; }
+        public Nullable<bool> IsActive { get; set; }
     }
 }
